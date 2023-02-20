@@ -4,7 +4,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 
 export const Header = () => {
     const { data: session } = useSession();
-
+  // console.log(session);
     if (session) {
       return (
         <>
@@ -14,7 +14,7 @@ export const Header = () => {
             </Box>
             <Box display="flex" justifyContent="space-between" alignItems="center" width="30%">
                 <Text>signed in as {session?.user?.email}</Text>
-                <Button onClick={() => signOut()}>Sign out</Button>
+              <Button onClick={() => { signOut() }}>Sign out</Button>
             </Box>
         </Flex>
         </>
