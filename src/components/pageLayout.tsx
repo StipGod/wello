@@ -6,7 +6,7 @@ import { Header } from './header'
 
 export const PageLayout = ({ children } : any) => {
   return (
-    <Flex>
+    <Flex direction={'column'}>
       <Header/>
       {children}
     </Flex>
