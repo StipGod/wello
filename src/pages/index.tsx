@@ -1,7 +1,9 @@
 import {Heading,Box, Button} from '@chakra-ui/react'
-import { useState } from 'react';
 import { useSession, signIn, signOut } from "next-auth/react"
 import { InferGetServerSidePropsType } from 'next'
+
+// components
+import { PageLayout } from '../components/pageLayout'
 
 import clientPromise from '../../lib/mongodb'
 
@@ -35,20 +37,15 @@ export default function Home({
   if (session) {
     return (
       <>
-        Signed in as {session?.user?.email} <br />
-        <Button onClick={() => signOut()}>Sign out</Button>
-        <Box>
-          <Heading>
-            Hola mundo {isConnected}
-          </Heading>
-        </Box>
+        <PageLayout>
+        </PageLayout>
       </>
     )
   }else {
     return (
       <>
-        Not signed in <br />
-        <Button onClick={() => signIn()}>Sign in</Button>
+        <PageLayout>
+        </PageLayout>
       </>
     )
   }
