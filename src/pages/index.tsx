@@ -8,12 +8,12 @@ import clientPromise from '../../lib/mongodb'
 
 export async function getServerSideProps() {
   try {
-    const client = await clientPromise;
-    const db = client.db("wello");
-    const resList = await db.collection("users").insertOne({
-      email:"tomas@gmail.com",
-      username:"Tomas",
-    });
+    // const client = await clientPromise;
+    // const db = client.db("wello");
+    // const resList = await db.collection("users").insertOne({
+    //   email:"tomas@gmail.com",
+    //   username:"Tomas",
+    // });
 
     return {
       props: { isConnected: true },
@@ -36,7 +36,7 @@ export default function Home({
     return (
       <>
         Signed in as {session?.user?.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
+        <Button onClick={() => signOut()}>Sign out</Button>
         <Box>
           <Heading>
             Hola mundo {isConnected}
@@ -48,7 +48,7 @@ export default function Home({
     return (
       <>
         Not signed in <br />
-        <button onClick={() => signIn()}>Sign in</button>
+        <Button onClick={() => signIn()}>Sign in</Button>
       </>
     )
   }
