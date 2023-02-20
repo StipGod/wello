@@ -10,10 +10,11 @@ export default async function handler(
         try {
             const client = await clientPromise;
             const db = client.db("wello");
-            if(db.collection("users").find( { "email": req.body.email } ) == null){
-                const resList = await db.collection("users").insertOne({
+            const query = await db.collection("users").findOne( { email: req.body.email });
+            if(query == null){
+                    const resList = await db.collection("users").insertOne({
                     email:req.body.email,
-                    type:req.body.type,
+                    username:req.body.type,
                 });
             }
             res.status(200).json({statusCode: 200, message: "Succes"})
@@ -28,8 +29,5 @@ export default async function handler(
 }
 
 
-export async function createUser(userEmail:string,userType:string) {
-    
-    
-}
+
     
