@@ -10,13 +10,15 @@ export default async function handler(
         try {
             const client = await clientPromise;
             const db = client.db("wello");
-            const query = await db.collection("users").findOne( { email: req.body.email });
-            if(query == null){
-                    const resList = await db.collection("users").insertOne({
-                    email:req.body.email,
-                    username:req.body.type,
-                    description:req.body.description,
-                });
+            const query = await db.collection("users").findOne( { email: req.body.email } );
+            if(query != null){
+                    db.collection("users").updateOne({ email: req.body.email },{ $set: {
+                    name: req.body.name,    
+                    lastname: req.body,              
+                    description: req.body.description,
+                    image:  req.body.image,
+                    cellphone: req.body.cellphone
+                }});
             }
             res.status(200).json({statusCode: 200, message: "Succes"})
 
