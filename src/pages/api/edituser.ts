@@ -1,12 +1,13 @@
 import { type } from 'os';
 import clientPromise from '../../../lib/mongodb'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import axios from 'axios';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-    if(req.method == "POST"){
+    if(req.method == "PUT"){
         try {
             const client = await clientPromise;
             const db = client.db("wello");

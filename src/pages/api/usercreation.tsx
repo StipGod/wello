@@ -14,8 +14,7 @@ export default async function handler(
             if(query == null){
                     const resList = await db.collection("users").insertOne({
                     email:req.body.email,
-                    username:req.body.type,
-                    description:req.body.description,
+                    type:req.body.type,
                 });
             }
             res.status(200).json({statusCode: 200, message: "Succes"})
