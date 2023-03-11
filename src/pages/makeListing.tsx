@@ -14,6 +14,7 @@ export default function MakeListing() {
         priceRange : "",
         description : ""
     });
+    console.log(session);
 
     const handleChange = (event : any) => {
         const { name, value } = event.target;

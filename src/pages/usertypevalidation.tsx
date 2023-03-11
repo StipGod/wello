@@ -14,9 +14,8 @@ export default function Usertypevalidation() {
     const { data: session } = useSession();
     const handleClick = async (type: boolean) => {
         try {
-            const res = await axios.post("/api/createuser", {
+            const res = await axios.post("/api/usercreation", {
                 "email": session?.user?.email,
-                "username": session?.user?.name,
                 "type": type ? "specialist" : "patient"
             })
             console.log(res);
