@@ -8,7 +8,7 @@ export const PageLayout = ({ children } : any) => {
   return (
     <Flex direction={'column'}>
       <Header/>
-      <Box display={"flex"} flexDirection="column" alignItems={"center"} p="2rem">
+      <Box display={"flex"} flexDirection="column">
       {children}
       </Box>
     </Flex>
