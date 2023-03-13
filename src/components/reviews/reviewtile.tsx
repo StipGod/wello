@@ -6,7 +6,7 @@ import { IoStar, IoStarOutline } from 'react-icons/io5';
 
 export default function ReviewTile(props: any) {
     const review = props.reviews;
-    console.log(review);
+    // console.log(review);
     return (
         <Flex direction={"row"} borderBottom={14} p={4} w={"80rem"} >
             <Stack align={"center"} flex={1}>

@@ -4,12 +4,13 @@
 
 import { useSession } from "next-auth/react"
 import { InferGetServerSidePropsType } from 'next'
-import { Box } from '@chakra-ui/react'
+import { Box, Heading, Stack, Text } from '@chakra-ui/react'
 
 // components
 import { PageLayout } from '../../components/pageLayout'
 import ListingCard from "../../components/listing"
 import ReviewCard from "../../components/reviews/reviewcard"
+import MakeReviewCard from "../../components/reviews/makereviewcard"
 
 
 import { useRouter } from 'next/router'
@@ -57,9 +58,15 @@ export default function Listing({
     return (
         <>
             <PageLayout>
-                <ListingCard profile={obj} />
-                <ReviewCard reviews={listOfReviews} />
+                <Stack>
+                    <ListingCard profile={obj} />
+                    <Stack spacing={10}>
+                        <ReviewCard reviews={listOfReviews} />
+                        {/* <MakeReviewCard /> */}
 
+                    </Stack>
+                    {/* <Heading>s</Heading> */}
+                </Stack>
             </PageLayout>
         </>
     )
