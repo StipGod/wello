@@ -15,7 +15,7 @@ export default async function handler(
             if(query != null){
                     db.collection("users").updateOne({ email: req.body.email },{ $set: {
                     name: req.body.name,    
-                    lastname: req.body,              
+                    lastname: req.body.lastname,              
                     description: req.body.description,
                     image:  req.body.image,
                     cellphone: req.body.cellphone
