@@ -60,12 +60,10 @@ export default function Listing({
             <PageLayout>
                 <Stack>
                     <ListingCard profile={obj} />
-                    <Stack spacing={10}>
+                    <Stack align={"center"} spacing={10}>
                         <ReviewCard reviews={listOfReviews} />
-                        {/* <MakeReviewCard /> */}
-
+        
                     </Stack>
-                    {/* <Heading>s</Heading> */}
                 </Stack>
             </PageLayout>
         </>

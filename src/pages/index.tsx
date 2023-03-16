@@ -47,7 +47,6 @@ export default function Home({
       bottom={'0'}
       left={'0'}
       right={'0'}>
-      <Footer/>
       </Box>
       </PageLayout>
     </>

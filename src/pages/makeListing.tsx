@@ -45,8 +45,7 @@ export default function MakeListing() {
                 <Input value={inputs.priceRange} name="priceRange"
                 onChange={handleChange}/>
                 <Text>description</Text>
-                <Textarea value={inputs.description} name="description"
-                onChange={handleChange}/>
+                <Textarea value={inputs.description} name="description" onChange={handleChange}/>
                 <Button mt={4} colorScheme='teal' type='submit' onClick={handleSubmit}>Submit</Button>
             </Box>
         </Box>
