@@ -1,4 +1,3 @@
-import { type } from 'os';
 import clientPromise from '../../../lib/mongodb'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -11,11 +10,11 @@ export default async function handler(
             const client = await clientPromise;
             const db = client.db("wello");
             const query = await db.collection("users").findOne({ email: req.body.email });
+
             if (query == null) {
                 const resList = await db.collection("users").insertOne({
                     email: req.body.email,
-                    type: req.body.type.toLowerCase(),
-                    token: req.body.token
+                    name: req.body.name.toLowerCase()
                 });
                 console.log(resList);
             }
