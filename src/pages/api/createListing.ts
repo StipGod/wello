@@ -8,15 +8,16 @@ export default async function handler(
 ) {
     if (req.method == "POST") {
         const data = {
-            title : req.body.title,
-            priceRange : req.body.title,
+            email : req.body.email,
+            maxPrice : req.body.maxPrice,
+            minPrice : req.body.minPrice,
             description : req.body.description
         }
         try {
             const client = await clientPromise;
             const db = client.db("wello");
 
-            //TODO 
+            db.collection("listings").insertOne(data);
             //write to db
             res.status(201).json({ statusCode: 201, message: "" });
         } catch (err) {
