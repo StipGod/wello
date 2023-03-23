@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import {Box, Button,Text,Input,Heading,Textarea} from '@chakra-ui/react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useState } from 'react';
@@ -8,13 +10,14 @@ import { PageLayout } from '../components/pageLayout'
 export default function MakeListing() {
 
     const { data: session } = useSession();
+    const [isLoading,setIsLoading] = useState(false);
 
     const [inputs, setInputs] = useState({
         title : "",
-        priceRange : "",
+        maxPrice : "",
+        minPrice : "",
         description : ""
     });
-    console.log(session);
 
     const handleChange = (event : any) => {
         const { name, value } = event.target;
@@ -25,9 +28,27 @@ export default function MakeListing() {
         }));
     }
 
-    const handleSubmit = () => {
-        // send data to api
-        console.log(inputs)
+    const handleSubmit = async () => {
+        if(!session) return
+        setIsLoading(true);
+        try {
+            const res = await axios.post("/api/createListing", {
+                "email": session?.user?.email,
+                "title": inputs.title,
+                "maxPrice": inputs.maxPrice,
+                "minPrice":inputs.minPrice,
+                "description": inputs.description
+            })
+        } catch (e) {
+            console.log(e)
+        }
+        setInputs({
+            title : "",
+            maxPrice : "",
+            minPrice : "",
+            description : ""
+        })
+        setIsLoading(false);
     }
 
     return (
@@ -41,12 +62,21 @@ export default function MakeListing() {
                 <Text>title</Text>
                 <Input value={inputs.title} name="title" 
                 onChange={handleChange}/>
-                <Text>price range</Text>
-                <Input value={inputs.priceRange} name="priceRange"
+                <Text>max price</Text>
+                <Input value={inputs.maxPrice} name="maxPrice"
+                onChange={handleChange}/>
+                 <Text>min price</Text>
+                <Input value={inputs.minPrice} name="minPrice"
                 onChange={handleChange}/>
                 <Text>description</Text>
                 <Textarea value={inputs.description} name="description" onChange={handleChange}/>
-                <Button mt={4} colorScheme='teal' type='submit' onClick={handleSubmit}>Submit</Button>
+                { session &&
+                    <Button mt={4} colorScheme='teal' type='submit' onClick={handleSubmit}>{(isLoading)?"Loading...":"Submit"}</Button>
+                }
+                 {!session &&
+                   <Heading mt="2rem" size="4rem">Loing to make listing</Heading>
+                }
+                
             </Box>
         </Box>
     </PageLayout>
