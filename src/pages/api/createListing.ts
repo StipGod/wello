@@ -18,7 +18,7 @@ export default async function handler(
             const db = client.db("wello");
 
             db.collection("listings").insertOne(data);
-            //write to db
+
             res.status(201).json({ statusCode: 201, message: "" });
         } catch (err) {
             res.status(500).json({ statusCode: 500, message: err });

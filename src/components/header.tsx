@@ -1,16 +1,42 @@
+import Link from 'next/link';
+import axios from 'axios';
+
 import {Flex,Box, Button, Text,IconButton,Stack,Icon,Popover,PopoverTrigger,PopoverContent,useColorModeValue,useBreakpointValue,useDisclosure} from '@chakra-ui/react'
 import { useSession, signIn, signOut } from "next-auth/react"
-import {
-  HamburgerIcon,
-  CloseIcon,
-  ChevronRightIcon
-} from '@chakra-ui/icons';
-
-import Link from 'next/link';
+import {HamburgerIcon,CloseIcon,ChevronRightIcon} from '@chakra-ui/icons';
+import { useEffect, useState } from 'react';
 
 export function Header() {
   const { isOpen, onToggle } = useDisclosure();
+
   const { data: session } = useSession();
+
+  const [error,setError] = useState<unknown>();
+  const [madeUser,setMadeUser] = useState(false);
+
+  const handleLogIn = async () =>{
+    signIn();
+  }
+
+  const handleLogout =async () => {
+    signOut();
+  }
+
+  useEffect(()=>{
+    if(madeUser) return;
+    (async ()=>{
+      try {
+        const res = await axios.post("/api/createuser", {
+          "email": session?.user?.email,
+          "name": session?.user?.name
+        })
+        console.log(res)
+        setMadeUser(true);
+      } catch (error) {
+        setError(error);
+      }
+    })()
+  },[session])
 
   if (session) {
   return (
@@ -59,9 +85,9 @@ export function Header() {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
-          <Text>signed in as {session?.user?.email}</Text>
+          <Text>signed in as <Link href={"/editpage"}><Text fontWeight="bold">{session?.user?.email}</Text></Link></Text>
           <Button
-            onClick={()=>{signOut()}}
+            onClick={handleLogout}
             fontSize={'sm'}
             fontWeight={600}
             color={'white'}
@@ -120,7 +146,7 @@ export function Header() {
           direction={'row'}
           spacing={6}>
           <Button
-            onClick={()=>{signIn()}}
+            onClick={handleLogIn}
             display={{ base: 'none', md: 'inline-flex' }}
             fontSize={'sm'}
             fontWeight={600}

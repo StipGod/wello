@@ -54,7 +54,7 @@ export default function MakeListing() {
     return (
 
     <PageLayout>
-        <Box width={"100%"} display={"flex"} justifyContent={"center"}>
+        <Box width={"100%"} display={"flex"} justifyContent={"center"} mt="2rem" mb="2rem">
             <Box width={"30%"} boxShadow='xs' p='6' rounded='md' bg='white'>
                 <Box borderBottom={"1px"} borderColor={"gray.200"} mb={"1rem"}>
                     <Heading>Make Listing</Heading>

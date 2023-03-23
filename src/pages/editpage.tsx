@@ -11,6 +11,8 @@ export default function editpage() {
 
     const { data: session } = useSession();
 
+    
+    const [isLoading,setIsLoading] = useState(false);
     const [inputs, setInputs] = useState({
         name : "",
         lastname : "",
@@ -21,7 +23,6 @@ export default function editpage() {
 
     const handleChange = (event : any) => {
         const { name, value } = event.target;
-        console.log(event.target)
         setInputs((prevProps) => ({
           ...prevProps,
           [name]: value
@@ -29,6 +30,7 @@ export default function editpage() {
     }
 
     const handleSubmit = async () => {
+        setIsLoading(true);
         try {
             const res = await axios.put("/api/edituser", {
                 "email": session?.user?.email,
@@ -42,12 +44,13 @@ export default function editpage() {
         } catch (e: any) {
             console.log(e);
         }
+        setIsLoading(false);
     }
     
     return (
 
         <PageLayout>
-            <Box width={"100%"} display={"flex"} justifyContent={"center"}>
+            <Box width={"100%"} display={"flex"} justifyContent={"center"} mt="2rem" mb="2rem">
                 <Box width={"30%"} boxShadow='xs' p='6' rounded='md' bg='white'>
                     <Box borderBottom={"1px"} borderColor={"gray.200"} mb={"1rem"}>
                         <Heading>Edit User</Heading>
@@ -67,7 +70,12 @@ export default function editpage() {
                     <Text>description</Text>
                     <Textarea value={inputs.description} name="description"
                     onChange={handleChange}/>
-                    <Button mt={4} colorScheme='teal' type='submit'onClick={()=> handleSubmit()}>Submit</Button>
+                    { session &&
+                        <Button mt={4} colorScheme='teal' type='submit' onClick={handleSubmit}>{(isLoading)?"Loading...":"Submit"}</Button>
+                    }
+                    {!session &&
+                    <Heading mt="2rem" size="4rem">Loing to make edit profile</Heading>
+                    }
                 </Box>
             </Box>
         </PageLayout>
