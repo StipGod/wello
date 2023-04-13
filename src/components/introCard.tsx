@@ -1,16 +1,21 @@
-import { Box,Image } from '@chakra-ui/react'
+import { Box,Image,Heading,Text } from '@chakra-ui/react'
 
-export function IntroCard() {
+export function IntroCard({title,body}:{
+  title:string,
+  body : string
+}) {
   return (
     <>
       <Box 
-      w={'400px'} 
-      h={'400px'} 
-      border={4}
+      w={"50%"} 
+      border={2}
+      p={"5px"}
       borderStyle={'solid'}
       borderColor={'#F6F8FE'}
       rounded={'md'}>
-        <Image src='https://bit.ly/dan-abramov'  boxSize='400px' alt='Dan Abramov' />
+      
+      <Heading color={"#526081"}>{title}</Heading>
+      <Text color={"#526081"}>{body}</Text>
       </Box>
     </>
   )

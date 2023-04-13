@@ -3,12 +3,14 @@ import { ReactNode } from 'react';
 import {
   Box,
   Container,
+  Flex,
   Heading,
   Link,
   SimpleGrid,
   Stack,
   Text
 } from '@chakra-ui/react';
+import { Logo } from './logo';
 
 
 export function Footer() {
@@ -21,11 +23,12 @@ export function Footer() {
           templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 1fr 1fr' }}
           spacing={8}>
           <Stack spacing={6}>
-            <Box>
-              <Heading>Wello 🧑🏻‍⚕️</Heading>
-            </Box>
+            <Flex>
+              <Logo/>
+              <Heading pl={"5px"}>Wello</Heading>
+            </Flex>
             <Text fontSize={'sm'}>
-              © 2022 Chakra Templates. sssAll rights reserved
+              Your Health Voyage, Seamlessly Planned
             </Text>
           </Stack>
           <Stack align={'flex-start'}>

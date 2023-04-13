@@ -5,6 +5,7 @@ import {Flex,Box, Button, Text,IconButton,Stack,Icon,Popover,PopoverTrigger,Popo
 import { useSession, signIn, signOut } from "next-auth/react"
 import {HamburgerIcon,CloseIcon,ChevronRightIcon} from '@chakra-ui/icons';
 import { useEffect, useState } from 'react';
+import {Logo} from "./logo"
 
 export function Header() {
   const { isOpen, onToggle } = useDisclosure();
@@ -64,16 +65,21 @@ export function Header() {
             aria-label={'Toggle Navigation'}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          <Text
-            fontWeight={"bold"}
-            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-            fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}
-            as="a"
-            href='/'>
-            Wello
-          </Text>
+        <Flex flex={{ base: 1 }} align={"center"} justify={{ base: 'center', md: 'start' }} >
+          <Flex align={"center"}>
+            <Logo/>
+            <Text
+              fontWeight={"bold"}
+              pl={"10px"}
+              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
+              fontFamily={'heading'}
+              color={useColorModeValue('gray.800', 'white')}
+              as="a"
+              href='/'>
+              Wello
+            </Text>
+          </Flex>
+        
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
@@ -91,7 +97,7 @@ export function Header() {
             fontSize={'sm'}
             fontWeight={600}
             color={'white'}
-            bg={'#2D4785'}>
+            bg={'#0D99FF'}>
             Log out
           </Button>
         </Stack>
@@ -151,7 +157,7 @@ export function Header() {
             fontSize={'sm'}
             fontWeight={600}
             color={'white'}
-            bg={'#2D4785'}>
+            bg={'#0D99FF'}>
             Log In
           </Button>
         </Stack>
@@ -239,7 +245,7 @@ interface NavItem {
 }
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'selller ',
+    label: 'seller ',
     children: [
       {
         label: 'dashboard',
