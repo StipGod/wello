@@ -3,29 +3,28 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { PageLayout } from '@/components/pageLayout';
 
-export default function Profile() {
+export default function Profile(email : string) {
     const [items, setItems] = useState({});
 
-    useEffect(() => {
-        axios.get('/api/getprofile', {
-            params: {
-              email: "stipgod2@gmail.com"
-            }
-          })
-          .then(function (response) {
-            console.log(response);
-            setItems(response.data);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-    }, []);
+    //email = "stipgod2@gmail.com";
 
+    useEffect(() => {
+        axios.get(`/api/getprofile?email=${email}`)
+            .then((response) => {
+                console.log(response);
+                setItems(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, [email]);
+
+    console.log(items)
     return (
         <PageLayout>
             <Flex flexDirection="column" alignItems="center" bg="#2D4785" color="white" py="5" px="3">
                 <Image
-                    src={items.profilePicture}
+                    src={items.image}
                     alt="Profile Picture"
                     width="150px"
                     height="150px"
@@ -35,7 +34,7 @@ export default function Profile() {
                     boxShadow="md"
                 />
                 <Text fontSize="2xl" fontWeight="bold" textAlign="center">
-                    {items.name}
+                    {items.name} {items.lastname} 
                 </Text>
                 <Text fontSize="md" color="#526081" textAlign="center" mb="3">
                     {items.email}  {items.cellphone}
@@ -47,7 +46,7 @@ export default function Profile() {
                     <Link
                         fontSize="lg"
                         color="white"
-                        href={`${items.twitter}`}
+                        href={items.twitter}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -56,7 +55,7 @@ export default function Profile() {
                     <Link
                         fontSize="lg"
                         color="white"
-                        href={`${items.instagram}`}
+                        href={items.instagram}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -65,7 +64,7 @@ export default function Profile() {
                     <Link
                         fontSize="lg"
                         color="white"
-                        href={`${items.youtube}`}
+                        href={items.youtube}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
