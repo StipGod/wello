@@ -1,5 +1,5 @@
 
-import { Heading, Box, Button, Link } from '@chakra-ui/react'
+import { Heading, Box, Button, Link, Stack } from '@chakra-ui/react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { InferGetServerSidePropsType } from 'next'
 
@@ -27,7 +27,9 @@ export default function SellerDashboard({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return (
         <PageLayout>
-            <Heading>Seller Dashboard</Heading>
+            <Stack>
+                <Heading>Seller Dashboard</Heading>
+            </Stack>
         </PageLayout>
     )
 }

@@ -17,8 +17,23 @@ export default async function handler(
             const client = await clientPromise;
             const db = client.db("wello");
 
-            db.collection("listings").insertOne(data);
-
+            const listing = await db.collection("listings").insertOne(data);
+            // console.log(listing)
+            const user = await db.collection("users").updateOne({ "email": data.email },
+                {
+                    $push: {
+                        listings: listing.insertedId,
+                    }
+                }
+            )
+            // console.log(user)
+            // if (user) {
+            //     if (!user["listings"]) user["listings"] = []
+            //     user["listings"].push(listing.insertedId)
+            //     console.log(user)
+            //     await user.save()
+            //     await db.collection("users").findOne({ "email": data.email }, $set: )
+            // }
             res.status(201).json({ statusCode: 201, message: "" });
         } catch (err) {
             res.status(500).json({ statusCode: 500, message: err });
