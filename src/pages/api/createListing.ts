@@ -8,6 +8,8 @@ export default async function handler(
 ) {
     if (req.method == "POST") {
         const data = {
+            title: req.body.title,
+            category: req.body.category,
             email : req.body.email,
             maxPrice : req.body.maxPrice,
             minPrice : req.body.minPrice,
