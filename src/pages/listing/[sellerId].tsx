@@ -62,7 +62,7 @@ export default function Listing({
                     <ListingCard profile={obj} />
                     <Stack align={"center"} spacing={10}>
                         <ReviewCard reviews={listOfReviews} />
-        
+
                     </Stack>
                 </Stack>
             </PageLayout>

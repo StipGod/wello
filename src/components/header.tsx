@@ -23,23 +23,24 @@ export function Header() {
     signOut();
   }
 
-  useEffect(()=>{
-    if(madeUser) return;
-    (async ()=>{
-      try {
-        const res = await axios.post("/api/createuser", {
-          "email": session?.user?.email,
-          "name": session?.user?.name
-        })
-        console.log(res)
-        setMadeUser(true);
-      } catch (error) {
-        setError(error);
-      }
-    })()
-  },[session])
+  // useEffect(()=>{
+  //   if(madeUser) return;
+  //   (async ()=>{
+  //     try {
+  //       const res = await axios.post("/api/createuser", {
+  //         "email": session?.user?.email,
+  //         "name": session?.user?.name
+  //       })
+  //       console.log(res)
+  //       setMadeUser(true);
+  //     } catch (error) {
+  //       setError(error);
+  //     }
+  //   })()
+  // },[session])
 
   if (session) {
+    // console.log(session);
   return (
     <Box>
       <Flex
