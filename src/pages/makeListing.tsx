@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {Box, Button,Text,Input,Heading,Textarea} from '@chakra-ui/react'
 import { useSession, signIn, signOut } from "next-auth/react"
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 // components
 import { PageLayout } from '../components/pageLayout'
@@ -12,16 +12,19 @@ export default function MakeListing() {
     const { data: session } = useSession();
     const [isLoading,setIsLoading] = useState(false);
 
+
     const [inputs, setInputs] = useState({
         title : "",
         maxPrice : "",
+        category: "",
         minPrice : "",
         description : ""
     });
 
     const handleChange = (event : any) => {
         const { name, value } = event.target;
-        console.log(event.target)
+
+        // console.log(event.target)
         setInputs((prevProps) => ({
           ...prevProps,
           [name]: value
@@ -35,6 +38,7 @@ export default function MakeListing() {
             const res = await axios.post("/api/createListing", {
                 "email": session?.user?.email,
                 "title": inputs.title,
+                "category": inputs.category,
                 "maxPrice": inputs.maxPrice,
                 "minPrice":inputs.minPrice,
                 "description": inputs.description
@@ -45,6 +49,7 @@ export default function MakeListing() {
         setInputs({
             title : "",
             maxPrice : "",
+            category: "",
             minPrice : "",
             description : ""
         })
@@ -60,13 +65,16 @@ export default function MakeListing() {
                     <Heading>Make Listing</Heading>
                 </Box>
                 <Text>title</Text>
-                <Input value={inputs.title} name="title" 
+                    <Input value={inputs.title} name="title" placeholder='Procedure  ex: Rhinoplastia' 
                 onChange={handleChange}/>
+                    <Text>Category</Text>
+                    <Input value={inputs.category} name="category" placeholder='Category  ex: Dermatology'
+                        onChange={handleChange} />
                 <Text>max price</Text>
-                <Input value={inputs.maxPrice} name="maxPrice"
+                    <Input type={"number"} value={inputs.maxPrice} name="maxPrice"
                 onChange={handleChange}/>
                  <Text>min price</Text>
-                <Input value={inputs.minPrice} name="minPrice"
+                    <Input type={"number"} value={inputs.minPrice} name="minPrice"
                 onChange={handleChange}/>
                 <Text>description</Text>
                 <Textarea value={inputs.description} name="description" onChange={handleChange}/>
