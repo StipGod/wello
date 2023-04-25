@@ -17,7 +17,7 @@ export const Body = ({listings}:{
     listings : Listing[]
 })=>{
 
-    const listingsObjects = listings.map((listing)=>{
+    const listingsObjects = listings?.map((listing)=>{
         return (
             <WrapItem>
                 <SearchCard 
