@@ -82,7 +82,7 @@ export default function MakeListing() {
                     <Button mt={4} colorScheme='teal' type='submit' onClick={handleSubmit}>{(isLoading)?"Loading...":"Submit"}</Button>
                 }
                  {!session &&
-                   <Heading mt="2rem" size="4rem">Loing to make listing</Heading>
+                   <Heading mt="2rem" size="4rem">Log in to make listing</Heading>
                 }
                 
             </Box>
