@@ -1,12 +1,15 @@
 import { Box,Flex,Heading,Text,Input,Button } from '@chakra-ui/react'
+import { MutableRefObject } from 'react'
 
-export function DataInput() {
+export function DataInput({queryRef,handleSearch}:{
+    queryRef: MutableRefObject<string>,
+    handleSearch : () => void 
+}) {
+    
   return (
-    <>
       <Flex 
       p={'2rem'}
       direction={'column'}>
-
         <Flex
         bg={'#F6F8FE'}
         minH={'200px'}
@@ -126,15 +129,14 @@ export function DataInput() {
             padding={'2rem'}>
                 <Heading color={'#526081'} fontWeight={'light'} pb={'1rem'}>Find By Specialty</Heading>
                 <Flex>
-                    <Input placeholder={'Eg. “Periodontist”'} size='lg' mr={'1rem'} />
-                    <Button color={'#526081'} size='lg' variant='outline'>
-                        next
+                    <Input ref={queryRef} placeholder={'Eg. “Periodontist”'} size='lg' mr={'1rem'} />
+                    <Button onClick={handleSearch} color={'#526081'} size='lg' variant='outline'>
+                        search
                     </Button>
                 </Flex>
             </Flex>
         </Flex>
 
       </Flex>
-    </>
   )
 }
