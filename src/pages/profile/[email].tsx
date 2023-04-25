@@ -1,25 +1,27 @@
+import { useRouter } from 'next/router'
 import { Box, Flex, Heading, Text, Image, Stack, Link } from '@chakra-ui/react'
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { PageLayout } from '@/components/pageLayout';
 
-export default function Profile(email : string) {
+export default function Profile() {
+    const router = useRouter();
+    const { email } = router.query;
     const [items, setItems] = useState({});
 
-    //email = "stipgod2@gmail.com";
-
     useEffect(() => {
-        axios.get(`/api/getprofile?email=${email}`)
-            .then((response) => {
-                console.log(response);
-                setItems(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        if (email) {
+            axios.get(`/api/getprofile?email=${email}`)
+                .then((response) => {
+                    console.log(response);
+                    setItems(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
     }, [email]);
-
-    console.log(items)
+    
     return (
         <PageLayout>
             <Flex flexDirection="column" alignItems="center" bg="#2D4785" color="white" py="5" px="3">
