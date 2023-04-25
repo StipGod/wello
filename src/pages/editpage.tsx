@@ -1,4 +1,4 @@
-import {Box, Button, Text, Input, Heading, Textarea} from '@chakra-ui/react'
+import {Box, Button, Text, Input, Heading, Textarea, Link} from '@chakra-ui/react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useState } from 'react';
 
@@ -50,6 +50,16 @@ export default function editpage() {
         } catch (e: any) {
             console.log(e);
         }
+        setInputs({
+            name: "",
+            lastname: "",
+            cellphone: "",
+            image: "",
+            twitter: "",
+            youtube: "",
+            instagram: "",
+            description: ""
+        })
         setIsLoading(false);
     }
     
@@ -86,7 +96,7 @@ export default function editpage() {
                     <Textarea value={inputs.description} name="description"
                     onChange={handleChange}/>
                     { session &&
-                        <Button mt={4} colorScheme='teal' type='submit' onClick={handleSubmit}>{(isLoading)?"Loading...":"Submit"}</Button>
+                        <Button mt={4} colorScheme='teal' type='submit' onClick={handleSubmit}>{(isLoading) ? "Loading..." : "Submit"}<Link href={`/profile/${session?.user?.email}`}></Link></Button>
                     }
                     {!session &&
                     <Heading mt="2rem" size="4rem">Log in to edit profile</Heading>
