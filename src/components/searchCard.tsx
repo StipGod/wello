@@ -1,4 +1,5 @@
 import { CardBody,Image,Stack,Heading,Text,Divider,CardFooter,Button,Card,ButtonGroup} from '@chakra-ui/react'
+import Link from 'next/link';
 
 interface Listing {
     description: string;
@@ -34,12 +35,7 @@ export const SearchCard = ({listing}:{
             <Divider />
             <CardFooter>
                 <ButtonGroup spacing='2'>
-                <Button variant='solid' colorScheme='blue'>
-                    Buy now
-                </Button>
-                <Button variant='ghost' colorScheme='blue'>
-                    Add to cart
-                </Button>
+                <Link href={'/listing/'+String(listing._id)}><Button variant='ghost' colorScheme='blue'>learn more</Button></Link>
                 </ButtonGroup>
             </CardFooter>
         </Card>
