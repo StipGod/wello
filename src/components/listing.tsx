@@ -16,13 +16,24 @@ import {
     IoLogoTwitter,
     IoSearchSharp,
 } from 'react-icons/io5';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
+import axios from 'axios';
 
 interface FeatureProps {
     text: string;
     iconBg: string;
     icon?: ReactElement;
 }
+
+interface Listing {
+    _id: string;
+    category: string;
+    description: string;
+    email: string;
+    maxPrice: string;
+    minPrice: string;
+    title: string;
+  }
 
 const Feature = ({ text, icon, iconBg }: FeatureProps) => {
     return (
@@ -42,6 +53,28 @@ const Feature = ({ text, icon, iconBg }: FeatureProps) => {
 };
 
 export default function ListingCard(props: any) {
+    const id = props.id;
+
+    const [listing,setListing] = useState<Listing>();
+
+    const makeSearch = async () => {
+        try {
+          return await axios.post('/api/listingById',{
+            id : id 
+          });
+        } catch (error) {
+          console.error('Error creating post:', error);
+        }
+      };
+    
+    useEffect(()=>{
+        (async ()=>{
+            const listing = await makeSearch();
+            setListing(listing?.data.listing)
+        })()
+    },[])
+
+    
     return (
         <Container maxW={'5xl'} py={12}>
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
@@ -57,9 +90,9 @@ export default function ListingCard(props: any) {
                         rounded={'md'}>
                         Wello
                     </Text>
-                    <Heading>{props.profile.title}</Heading>
+                    <Heading>{listing?.title}</Heading>
                     <Text color={'gray.500'} fontSize={'lg'}>
-                        {props.profile.description}
+                        {listing?.description}
                     </Text>
                     <Stack
                         spacing={4}
