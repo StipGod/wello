@@ -10,7 +10,7 @@ import { PageLayout } from '../components/pageLayout'
 export default function MakeListing() {
 
     const { data: session } = useSession();
-    const [isLoading,setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const [inputs, setInputs] = useState({
