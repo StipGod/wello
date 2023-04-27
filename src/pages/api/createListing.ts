@@ -29,13 +29,6 @@ export default async function handler(
                 }
             )
             // console.log(user)
-            // if (user) {
-            //     if (!user["listings"]) user["listings"] = []
-            //     user["listings"].push(listing.insertedId)
-            //     console.log(user)
-            //     await user.save()
-            //     await db.collection("users").findOne({ "email": data.email }, $set: )
-            // }
             res.status(201).json({ statusCode: 201, message: "" });
         } catch (err) {
             res.status(500).json({ statusCode: 500, message: err });

@@ -43,6 +43,7 @@ export default function MakeListing() {
                 "minPrice":inputs.minPrice,
                 "description": inputs.description
             })
+            // console.log(inputs)
         } catch (e) {
             console.log(e)
         }
