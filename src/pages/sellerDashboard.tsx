@@ -99,6 +99,13 @@ export default function SellerDashboard({
                                 </Card>
                                 <Card maxW='sm' p={3}>
                                     <Stack direction={"row"}>
+                                        <Text>email: </Text>
+                                        {/* {bar} */}
+                                        <Text> {el.email} </Text>
+                                    </Stack>
+                                </Card>
+                                <Card maxW='sm' p={3}>
+                                    <Stack direction={"row"}>
                                         <Text>title: </Text>
                                         {/* {bar} */}
                                         <Text> {el.title} </Text>
