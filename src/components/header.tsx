@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import axios from 'axios';
 
-import {Flex,Box, Button, Text,IconButton,Stack,Icon,Popover,PopoverTrigger,PopoverContent,useColorModeValue,useBreakpointValue,useDisclosure} from '@chakra-ui/react'
+import {Flex,Box, Button, Text,IconButton,useColorMode,Stack,Icon,Popover,PopoverTrigger,PopoverContent,useColorModeValue,useBreakpointValue,useDisclosure} from '@chakra-ui/react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import {HamburgerIcon,CloseIcon,ChevronRightIcon} from '@chakra-ui/icons';
 import { useEffect, useState } from 'react';
@@ -9,12 +9,10 @@ import {Logo} from "./logo"
 
 export function Header() {
   const { isOpen, onToggle } = useDisclosure();
-
+  const { toggleColorMode } = useColorMode();
   const { data: session } = useSession();
-
   const [error,setError] = useState<unknown>();
   const [madeUser,setMadeUser] = useState(false);
-
   const handleLogIn = async () =>{
     signIn();
   }
@@ -92,7 +90,7 @@ export function Header() {
           justify={'flex-end'}
           direction={'row'}
           spacing={6}>
-          <Text>signed in as <Link href={"/editpage"}><Text fontWeight="bold">{session?.user?.email}</Text></Link></Text>
+          <Text>Signed in as: <Link href={"/editpage"}><Text fontWeight="bold">{session?.user?.email}</Text></Link></Text>
           <Button
             onClick={handleLogout}
             fontSize={'sm'}
@@ -141,12 +139,12 @@ export function Header() {
             href='/'>
             Wello
           </Text>
-
+          
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
           </Flex>
         </Flex>
-
+        
         <Stack
           flex={{ base: 1, md: 0 }}
           justify={'flex-end'}
