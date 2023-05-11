@@ -15,13 +15,11 @@ export default async function handler(
             const db = client.db("wello");
             const user = await db.collection("users").findOne({ "email": req.body.email });
             const ids = user.cart;
-            //const listings: Listing[];
+            const listings = [];
             
             for (let index = 0; index < ids.length; index++) {
-                const listing = await db.collection("listings").findOne({ "_id" : new ObjectId(ids[index])}) ;
-                console.log(ids[index]);
-                console.log(listing);
-                //listings.push();
+                const listing = await db.collection("listings").findOne({ "_id" : new ObjectId(ids[index])});
+                listings.push(listing);
                 
             }
 
