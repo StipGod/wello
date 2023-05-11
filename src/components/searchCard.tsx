@@ -1,5 +1,10 @@
-import { CardBody,Image,Stack,Heading,Text,Divider,CardFooter,Button,Card,ButtonGroup} from '@chakra-ui/react'
+import { CardBody,Image,Stack,Heading,Text,Divider,CardFooter,Button,Card,ButtonGroup,useToast} from '@chakra-ui/react'
 import Link from 'next/link';
+import { useRouter } from 'next/router'
+import { useSession, signIn, signOut } from "next-auth/react"
+import axios from 'axios'
+
+
 
 interface Listing {
     description: string;
@@ -10,9 +15,35 @@ interface Listing {
     title : string;
   }
 
+
+  
+
 export const SearchCard = ({listing}:{
     listing : Listing
 }) => {
+    const toast = useToast();
+    const { data: session } = useSession();
+
+    const handleAdd = async (id, email) => {
+        toast({
+            title: "Product added to cart",
+            description: listing.description,
+            status: "success",
+            duration: 3000,
+            isClosable: true
+          });
+    
+        try {
+            const res = await axios.post("/api/addToCart", {
+                "email": email,
+                "id": id
+                
+            })
+            console.log(res);
+        } catch (e: any) {
+            console.log(e);
+        }
+    }
 
     return (
         <Card maxW='sm'>
@@ -35,7 +66,12 @@ export const SearchCard = ({listing}:{
             <Divider />
             <CardFooter>
                 <ButtonGroup spacing='2'>
-                <Link href={'/listing/'+String(listing._id)}><Button variant='ghost' colorScheme='blue'>learn more</Button></Link>
+                <Link href={'/listing/'+String(listing._id)}><Button variant='ghost' colorScheme='blue'>Learn more</Button></Link>
+                </ButtonGroup>
+                <ButtonGroup spacing='2'>
+                <Button onClick={() => handleAdd(listing._id,session?.user?.email)}>
+                    Add to cart
+                  </Button>
                 </ButtonGroup>
             </CardFooter>
         </Card>
