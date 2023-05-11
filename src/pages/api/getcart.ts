@@ -1,5 +1,8 @@
 import clientPromise from '../../../lib/mongodb'
+import { ObjectId } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next'
+import Listing from '../listing';
+import axios from 'axios';
 
 export default async function handler(
     req: NextApiRequest,
@@ -10,11 +13,19 @@ export default async function handler(
         try {
             const client = await clientPromise;
             const db = client.db("wello");
-            await db.collection("listings").createIndex({ title:  "text" });
-            const dbQuery = db.collection("listings").find({ $text: { $search: query } });
-            const listings = await dbQuery.toArray();
+            const user = await db.collection("users").findOne({ "email": req.body.email });
+            const ids = user.cart;
+            //const listings: Listing[];
+            
+            for (let index = 0; index < ids.length; index++) {
+                const listing = await db.collection("listings").findOne({ "_id" : new ObjectId(ids[index])}) ;
+                console.log(ids[index]);
+                console.log(listing);
+                //listings.push();
+                
+            }
 
-            res.status(200).json({ statusCode: 200, message: "Succes",listings : listings })
+            res.status(200).json({ statusCode: 200, message: "Succes" })
 
         } catch (err) {
             res.status(500).json({ statusCode: 500, message: err })
