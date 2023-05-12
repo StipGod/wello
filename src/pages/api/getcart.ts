@@ -20,10 +20,9 @@ export default async function handler(
             for (let index = 0; index < ids.length; index++) {
                 const listing = await db.collection("listings").findOne({ "_id" : new ObjectId(ids[index])});
                 listings.push(listing);
-                
             }
-
-            res.status(200).json({ statusCode: 200, message: "Succes" })
+            console.log(listings)
+            res.status(200).json({ statusCode: 200, message: "Succes", listings })
 
         } catch (err) {
             res.status(500).json({ statusCode: 500, message: err })

@@ -1,75 +1,67 @@
-import { Box, Heading, Text, Button, useColorMode, useColorModeValue, Grid, GridItem, Divider, Flex, Stack, Image, Badge, useToast} from "@chakra-ui/react";
-import { useSession, signIn, signOut } from "next-auth/react"
-import { InferGetServerSidePropsType } from 'next'
+import { Box, Heading, Text, Button, useColorMode, useColorModeValue, Grid, GridItem, Divider, Flex, Stack, Image, Badge, useToast } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
+import axios from "axios";
+import React, { useEffect, useState } from 'react';
 
 // components
-import { PageLayout } from '../components/pageLayout'
-import clientPromise from '../../lib/mongodb'
+import { PageLayout } from '../components/pageLayout';
+import clientPromise from '../../lib/mongodb';
 
-const products = [
-    {
-      id: 1,
-      name: "Product 1",
-      image: "https://via.placeholder.com/150",
-      price: 19.99
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      image: "https://via.placeholder.com/150",
-      price: 29.99
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      image: "https://via.placeholder.com/150",
-      price: 39.99
-    },
-    {
-        id: 4,
-        name: "Product 3",
-        image: "https://via.placeholder.com/150",
-        price: 39.99
+const ShoppingCart: React.FC = () => {
+  const { data: session } = useSession();
+  const { toggleColorMode } = useColorMode();
+  const toast = useToast();
+  const bgColor = useColorModeValue("blue.100", "blue.700");
+  const textColor = useColorModeValue("gray.800", "white");
+
+  const handleRemoveCart = (id: number, name: string) => {
+    toast({
+      title: "Service removed from cart",
+      description: name,
+      status: "success",
+      duration: 3000,
+      isClosable: true
+    });
+  };
+
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post('/api/getcart', {
+          //email: session?.user?.email,
+          email: "stipgod2@gmail.com",
+        });
+        setCartItems(response.data);
+      } catch (error) {
+        console.error('Error fetching cart items:', error);
       }
-  ];
-  
-  const ShoppingCart = () => {
-    const { toggleColorMode } = useColorMode();
-    const toast = useToast();
-    const bgColor = useColorModeValue("blue.100", "blue.700");
-    const textColor = useColorModeValue("gray.800", "white");
-  
-    const handleAddToCart = (product) => {
-      toast({
-        title: "Product added to cart",
-        description: product.name,
-        status: "success",
-        duration: 3000,
-        isClosable: true
-      });
     };
-  
-    return (
 
-    <PageLayout>
-      <Box bgColor={bgColor} color={textColor} p={4}>
+    fetchData();
+  }, ["stipgod2@gmail.com"]);
+  //}, [session?.user?.email]);
+
+  return (
+    <PageLayout bgColor={bgColor} textColor={textColor}>
+      <Box p={4}>
         <Box maxW="960px" mx="auto">
           <Flex justify="space-between" align="center" mb={4}>
             <Heading as="h1" size="lg">
               Shopping Cart
             </Heading>
-            
           </Flex>
           <Divider mb={4} />
           <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-            {products.map((product) => (
-              <GridItem key={product.id}>
+            {cartItems.map((listing: any) => (
+              <GridItem key={listing.id}>
                 <Stack spacing={2}>
-                  <Image src={product.image} alt={product.name} />
-                  <Text fontWeight="bold">{product.name}</Text>
-                  <Text>${product.price}</Text>
-                  <Button onClick={() => handleAddToCart(product)}>
-                    Add to cart
+                  <Image src={listing.image} alt={listing.name} />
+                  <Text fontWeight="bold">{listing.name}</Text>
+                  <Text>${listing.price}</Text>
+                  <Button onClick={() => handleRemoveCart(listing.id, listing.name)}>
+                    Remove from cart
                   </Button>
                 </Stack>
               </GridItem>
@@ -78,7 +70,7 @@ const products = [
         </Box>
       </Box>
     </PageLayout>
-    );
-  };
-  
-  export default ShoppingCart;
+  );
+};
+
+export default ShoppingCart;
