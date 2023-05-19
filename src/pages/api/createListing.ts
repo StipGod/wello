@@ -13,7 +13,8 @@ export default async function handler(
             email : req.body.email,
             maxPrice : req.body.maxPrice,
             minPrice : req.body.minPrice,
-            description : req.body.description
+            description : req.body.description,
+            image : req.body.image
         }
         try {
             const client = await clientPromise;

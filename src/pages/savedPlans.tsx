@@ -90,7 +90,7 @@ return (
               <Card maxW="sm">
                 <CardBody>
                   <Image
-                    src={listing.imageURL}
+                    src={listing.image}
                     alt={listing.title}
                     borderRadius="lg"
                   />
