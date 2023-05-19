@@ -14,14 +14,16 @@ const ShoppingCart: React.FC = () => {
   const toast = useToast();
   const bgColor = useColorModeValue("blue.100", "blue.700");
   const textColor = useColorModeValue("gray.800", "white");
+  const [cartItems, setCartItems] = useState([]);
 
-  const handleRemoveCart = (id: number, name: string) => {
+  const handleRemoveCart = async (id: number, name: string) => {
 
     if (status === "authenticated") {
-      const response = axios.post('/api/removecart', {
+      const response = await axios.put('/api/removecart', {
           "email": session?.user?.email,
           "id": id,
       }); 
+      setCartItems(response.data.cart)
       toast({
         title: "Service removed from cart",
         description: name,
@@ -40,8 +42,6 @@ const ShoppingCart: React.FC = () => {
     }
   };
 
-  const [cartItems, setCartItems] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
       if (status === "authenticated") {
@@ -51,14 +51,10 @@ const ShoppingCart: React.FC = () => {
           },
         }); 
         setCartItems(response.data.listings)
-        console.log(Array.isArray(response.data.listings))
       }
   };
-console.log(cartItems)
 fetchData();
 }, [status, session?.user?.email]);
-
-  console.log(cartItems)
 
 if (status === "loading") {
   return <PageLayout bgColor={bgColor} textColor={textColor}>
@@ -73,7 +69,7 @@ if (status === "loading") {
     </Box>
   </PageLayout>;
 }
-  
+
 return (
   <PageLayout bgColor={bgColor} textColor={textColor}>
     <Box p={4}>

@@ -6,7 +6,7 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    if (req.method == "POST") {
+    if (req.method == "PUT") {
         const data = {
             email: req.body.email,
             id: req.body.id
@@ -27,7 +27,7 @@ export default async function handler(
             });
             console.log("New cart:")
             console.log(cart)
-            res.status(201).json({ statusCode: 201, message: "Success" });
+            res.status(201).json({ statusCode: 201, message: "Success", cart});
         } catch (err) {
             res.status(500).json({ statusCode: 500, message: err });
         }
