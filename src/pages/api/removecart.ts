@@ -11,11 +11,22 @@ export default async function handler(
             email: req.body.email,
             id: req.body.id
         }
+        console.log(data)
         try {
             const client = await clientPromise;
             const db = client.db("wello");
             const user = await db.collection("users").findOne({ "email": data.email })
             //search for id and remove.
+            const cart = await user?.cart
+            const index = cart.indexOf(data.id)
+            const removed = cart.splice(index, 1);
+            db.collection("users").updateOne({ email: req.body.email }, {
+                $set: {
+                    cart: cart
+                }
+            });
+            console.log("New cart:")
+            console.log(cart)
             res.status(201).json({ statusCode: 201, message: "Success" });
         } catch (err) {
             res.status(500).json({ statusCode: 500, message: err });

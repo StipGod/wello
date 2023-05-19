@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { ObjectId } from 'mongodb';
 
 import clientPromise from 'lib/mongodb';
 export default async function handler(
@@ -18,7 +19,7 @@ export default async function handler(
             const user = await db.collection("users").updateOne({ "email": data.email },
                 {
                     $push: {
-                        cart: data.id,
+                        cart: new ObjectId(data.id),
                     }
                 }
             )

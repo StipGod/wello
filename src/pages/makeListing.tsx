@@ -18,7 +18,8 @@ export default function MakeListing() {
         maxPrice : "",
         category: "",
         minPrice : "",
-        description : ""
+        description : "",
+        image : "",
     });
 
     const handleChange = (event : any) => {
@@ -41,7 +42,8 @@ export default function MakeListing() {
                 "category": inputs.category,
                 "maxPrice": inputs.maxPrice,
                 "minPrice":inputs.minPrice,
-                "description": inputs.description
+                "description": inputs.description,
+                "image" : inputs.image
             })
         } catch (e) {
             console.log(e)
@@ -51,7 +53,8 @@ export default function MakeListing() {
             maxPrice : "",
             category: "",
             minPrice : "",
-            description : ""
+            description : "",
+            image : ""
         })
         setIsLoading(false);
     }
@@ -64,7 +67,7 @@ export default function MakeListing() {
                 <Box borderBottom={"1px"} borderColor={"gray.200"} mb={"1rem"}>
                     <Heading>Make Listing</Heading>
                 </Box>
-                <Text>title</Text>
+                <Text>Title</Text>
                     <Input value={inputs.title} name="title" placeholder='Procedure  ex: Rhinoplastia' 
                 onChange={handleChange}/>
                     <Text>Category</Text>
@@ -76,8 +79,10 @@ export default function MakeListing() {
                  <Text>min price</Text>
                     <Input type={"number"} value={inputs.minPrice} name="minPrice"
                 onChange={handleChange}/>
-                <Text>description</Text>
+                <Text>Description</Text>
                 <Textarea value={inputs.description} name="description" onChange={handleChange}/>
+                <Text>Image</Text>
+                <Input value={inputs.image} name="image" onChange={handleChange}/>
                 { session &&
                     <Button mt={4} colorScheme='teal' type='submit' onClick={handleSubmit}>{(isLoading)?"Loading...":"Submit"}</Button>
                 }
