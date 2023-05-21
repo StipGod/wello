@@ -3,7 +3,6 @@ import { Heading, Box, Button, Link,Stack,Text,Card} from '@chakra-ui/react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { InferGetServerSidePropsType } from 'next'
 import { useEffect, useState } from 'react'
-import axios from 'axios';
 import { ObjectId } from 'mongodb';
 import axios from 'axios'
 // components

@@ -1,7 +1,3 @@
-
-
-
-
 import ReviewTile from './reviewtile'
 import { useEffect, useState, useRef } from 'react'
 import { Text, Flex, Stack, Heading, Input, Button, Image,Textarea } from '@chakra-ui/react'
