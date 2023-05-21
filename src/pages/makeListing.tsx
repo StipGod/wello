@@ -16,7 +16,8 @@ export default function MakeListing() {
         title : "",
         maxPrice : "",
         minPrice : "",
-        description : ""
+        description : "",
+        category: "",
     });
 
     const handleChange = (event : any) => {
@@ -37,7 +38,9 @@ export default function MakeListing() {
                 "title": inputs.title,
                 "maxPrice": inputs.maxPrice,
                 "minPrice":inputs.minPrice,
-                "description": inputs.description
+                "description": inputs.description,
+                "category": inputs.category,
+
             })
         } catch (e) {
             console.log(e)
@@ -46,7 +49,8 @@ export default function MakeListing() {
             title : "",
             maxPrice : "",
             minPrice : "",
-            description : ""
+            description : "",
+            category:"",
         })
         setIsLoading(false);
     }
@@ -61,6 +65,9 @@ export default function MakeListing() {
                 </Box>
                 <Text>title</Text>
                 <Input value={inputs.title} name="title" 
+                onChange={handleChange}/>
+                <Text>category</Text>
+                <Input value={inputs.category} name="category" 
                 onChange={handleChange}/>
                 <Text>max price</Text>
                 <Input value={inputs.maxPrice} name="maxPrice"

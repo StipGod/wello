@@ -7,22 +7,16 @@ export default async function handler(
   res: NextApiResponse
 ) {
     if (req.method == "POST") {
+
         const data = {
             email : req.body.email,
-            maxPrice : req.body.maxPrice,
-            minPrice : req.body.minPrice,
-            description : req.body.description,
-            title: req.body.title,
-            category: req.body.category,
-            counter: 0,
         }
         try {
             const client = await clientPromise;
             const db = client.db("wello");
+            const listings = await db.collection("listings").find({ "email": data.email }).toArray();
 
-            db.collection("listings").insertOne(data);
-
-            res.status(201).json({ statusCode: 201, message: "" });
+            res.status(201).json({ statusCode: 201, message: "",listings:listings });
         } catch (err) {
             res.status(500).json({ statusCode: 500, message: err });
         }
