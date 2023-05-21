@@ -16,11 +16,13 @@ export default async function handler(
                     email: req.body.email,
                     name: req.body.name.toLowerCase()
                 });
-                console.log(resList);
+                // console.log(resList);
             }
             res.status(200).json({ statusCode: 200, message: "Succes" })
 
         } catch (err) {
+
+            console.log(err)
             res.status(500).json({ statusCode: 500, message: err })
         }
 

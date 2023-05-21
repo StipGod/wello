@@ -14,6 +14,7 @@ export default async function handler(
             maxPrice : req.body.maxPrice,
             minPrice : req.body.minPrice,
             description : req.body.description,
+            counter: 0,
             image : req.body.image
         }
         try {
