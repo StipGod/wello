@@ -1,6 +1,7 @@
-import {Box, Button, Text, Input, Heading, Textarea} from '@chakra-ui/react'
+import {Box, Button, Text, Input, Heading, Textarea, Link} from '@chakra-ui/react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useState } from 'react';
+import { useRouter } from 'next/router'
 
 // components
 import { PageLayout } from '@/components/pageLayout'
@@ -10,7 +11,7 @@ import axios from 'axios'
 export default function editpage() {
 
     const { data: session } = useSession();
-
+    const router = useRouter();
     
     const [isLoading,setIsLoading] = useState(false);
     const [inputs, setInputs] = useState({
@@ -18,6 +19,9 @@ export default function editpage() {
         lastname : "",
         description : "",
         cellphone : "",
+        twitter : "",
+        instagram : "",
+        youtube : "",
         image : ""
     });
 
@@ -38,12 +42,26 @@ export default function editpage() {
                 "lastname": inputs.lastname,
                 "cellphone":inputs.cellphone,
                 "image": inputs.image,
+                "twitter": inputs.twitter,
+                "instagram": inputs.instagram,
+                "youtube": inputs.youtube,
                 "description": inputs.description
             })
             console.log(res);
         } catch (e: any) {
             console.log(e);
         }
+        setInputs({
+            name: "",
+            lastname: "",
+            cellphone: "",
+            image: "",
+            twitter: "",
+            youtube: "",
+            instagram: "",
+            description: ""
+        })
+        router.push(`/profile/${session?.user?.email}`);
         setIsLoading(false);
     }
     
@@ -67,14 +85,23 @@ export default function editpage() {
                     <Text>Image</Text>
                     <Input value={inputs.image} name="image" 
                     onChange={handleChange}/>
+                    <Text>Twitter (Link)</Text>
+                    <Input value={inputs.twitter} name="twitter" 
+                    onChange={handleChange}/>
+                    <Text>Youtube (Link)</Text>
+                    <Input value={inputs.youtube} name="youtube" 
+                    onChange={handleChange}/>
+                    <Text>Instagram (Link)</Text>
+                    <Input value={inputs.instagram} name="instagram" 
+                    onChange={handleChange}/>
                     <Text>description</Text>
                     <Textarea value={inputs.description} name="description"
                     onChange={handleChange}/>
                     { session &&
-                        <Button mt={4} colorScheme='teal' type='submit' onClick={handleSubmit}>{(isLoading)?"Loading...":"Submit"}</Button>
+                        <Button mt={4} colorScheme='teal' type='submit' onClick={handleSubmit}>{(isLoading) ? "Loading..." : "Submit"}</Button>
                     }
                     {!session &&
-                    <Heading mt="2rem" size="4rem">Loing to make edit profile</Heading>
+                    <Heading mt="2rem" size="4rem">Log in to edit profile</Heading>
                     }
                 </Box>
             </Box>

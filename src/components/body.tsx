@@ -1,20 +1,44 @@
-import { Flex,Box,Heading } from '@chakra-ui/react'
+import { Flex,Box,WrapItem,Wrap,Center } from '@chakra-ui/react'
 
 //componnets
 import { IntroCard } from './introCard'
+import { SearchCard } from './searchCard'
 
-export const Body = ()=>{
+interface Listing {
+    description: string;
+    email: string;
+    maxPrice: string;
+    minPrice: string;
+    _id: string;
+    title : string;
+  }
+
+export const Body = ({listings}:{
+    listings : Listing[]
+})=>{
+
+    const listingsObjects = listings?.map((listing)=>{
+        return (
+            <WrapItem>
+                <SearchCard 
+                    listing={listing}
+                />
+            </WrapItem>
+        )
+    })
+
+
     return(    
     <>
+        <Wrap spacing='5rem' align='center' justify="center" p="5rem">
+            {listingsObjects}
+        </Wrap>
+
         <Flex 
-        minH={'600px'}
+        minH={'500px'}
         justifyContent={'center'}>
             <Flex width={'70%'}
             direction={'column'}>
-                <Heading
-                fontWeight={'light'}
-                color={'#526081'}
-                ></Heading>
                 <Box
                 width={'100%'}
                 height={'3px'}
@@ -36,34 +60,3 @@ export const Body = ()=>{
     </>
   )
 }
-
-// const form = ()=>{
-//     return(
-//     <>
-//         <Flex 
-//         minH={'600px'}
-//         justifyContent={'center'}>
-//             <Flex width={'70%'}
-//             direction={'column'}>
-//                 <Heading
-//                 fontWeight={'light'}
-//                 color={'#526081'}
-//                 >Top most searched places</Heading>
-//                 <Box
-//                 width={'100%'}
-//                 height={'3px'}
-//                 bg={'#F6F8FE'}></Box>
-//                 <Flex 
-//                 pt={'2rem'}
-//                 pb={'2rem'}
-//                 justifyContent={'space-between'}>
-//                     <FormCard/>
-//                     <FormCard/>
-//                     <FormCard/>
-//                 </Flex>
-//             </Flex>
-//         </Flex> 
-//     </>
-//     )
-// }
-

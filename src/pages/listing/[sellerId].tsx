@@ -43,7 +43,7 @@ export default function Listing({
     const { data: session } = useSession();
     const router = useRouter()
     const id = router.query.sellerId as string
-    console.log(id);
+
     const obj =
     {
         imageUrl: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg",
@@ -59,10 +59,10 @@ export default function Listing({
         <>
             <PageLayout>
                 <Stack>
-                    <ListingCard profile={obj} />
+                    <ListingCard profile={obj} id={id} />
                     <Stack align={"center"} spacing={10}>
                         <ReviewCard reviews={listOfReviews} />
-        
+
                     </Stack>
                 </Stack>
             </PageLayout>

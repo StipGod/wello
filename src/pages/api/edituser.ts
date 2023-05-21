@@ -18,7 +18,10 @@ export default async function handler(
                     lastname: req.body.lastname,              
                     description: req.body.description,
                     image:  req.body.image,
-                    cellphone: req.body.cellphone
+                    cellphone: req.body.cellphone,
+                    twitter: req.body.twitter,
+                    youtube: req.body.youtube,
+                    instagram: req.body.instagram
                 }});
             }
             res.status(200).json({statusCode: 200, message: "Succes"})

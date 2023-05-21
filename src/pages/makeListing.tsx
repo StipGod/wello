@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {Box, Button,Text,Input,Heading,Textarea} from '@chakra-ui/react'
 import { useSession, signIn, signOut } from "next-auth/react"
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 // components
 import { PageLayout } from '../components/pageLayout'
@@ -10,19 +10,22 @@ import { PageLayout } from '../components/pageLayout'
 export default function MakeListing() {
 
     const { data: session } = useSession();
-    const [isLoading,setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
 
     const [inputs, setInputs] = useState({
         title : "",
         maxPrice : "",
+        category: "",
         minPrice : "",
         description : "",
-        category: "",
+        image : "",
     });
 
     const handleChange = (event : any) => {
         const { name, value } = event.target;
-        console.log(event.target)
+
+        // console.log(event.target)
         setInputs((prevProps) => ({
           ...prevProps,
           [name]: value
@@ -36,11 +39,11 @@ export default function MakeListing() {
             const res = await axios.post("/api/createListing", {
                 "email": session?.user?.email,
                 "title": inputs.title,
+                "category": inputs.category,
                 "maxPrice": inputs.maxPrice,
                 "minPrice":inputs.minPrice,
                 "description": inputs.description,
-                "category": inputs.category,
-
+                "image" : inputs.image
             })
         } catch (e) {
             console.log(e)
@@ -48,9 +51,10 @@ export default function MakeListing() {
         setInputs({
             title : "",
             maxPrice : "",
+            category: "",
             minPrice : "",
             description : "",
-            category:"",
+            image : ""
         })
         setIsLoading(false);
     }
@@ -63,25 +67,27 @@ export default function MakeListing() {
                 <Box borderBottom={"1px"} borderColor={"gray.200"} mb={"1rem"}>
                     <Heading>Make Listing</Heading>
                 </Box>
-                <Text>title</Text>
-                <Input value={inputs.title} name="title" 
+                <Text>Title</Text>
+                    <Input value={inputs.title} name="title" placeholder='Procedure  ex: Rhinoplastia' 
                 onChange={handleChange}/>
-                <Text>category</Text>
-                <Input value={inputs.category} name="category" 
-                onChange={handleChange}/>
+                    <Text>Category</Text>
+                    <Input value={inputs.category} name="category" placeholder='Category  ex: Dermatology'
+                        onChange={handleChange} />
                 <Text>max price</Text>
-                <Input value={inputs.maxPrice} name="maxPrice"
+                    <Input type={"number"} value={inputs.maxPrice} name="maxPrice"
                 onChange={handleChange}/>
                  <Text>min price</Text>
-                <Input value={inputs.minPrice} name="minPrice"
+                    <Input type={"number"} value={inputs.minPrice} name="minPrice"
                 onChange={handleChange}/>
-                <Text>description</Text>
+                <Text>Description</Text>
                 <Textarea value={inputs.description} name="description" onChange={handleChange}/>
+                <Text>Image</Text>
+                <Input value={inputs.image} name="image" onChange={handleChange}/>
                 { session &&
                     <Button mt={4} colorScheme='teal' type='submit' onClick={handleSubmit}>{(isLoading)?"Loading...":"Submit"}</Button>
                 }
                  {!session &&
-                   <Heading mt="2rem" size="4rem">Loing to make listing</Heading>
+                   <Heading mt="2rem" size="4rem">Log in to make listing</Heading>
                 }
                 
             </Box>

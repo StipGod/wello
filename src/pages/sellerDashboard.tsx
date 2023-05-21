@@ -1,10 +1,11 @@
 
-import { Heading, Box, Button, Link,Stack,Text} from '@chakra-ui/react'
+import { Heading, Box, Button, Link,Stack,Text,Card} from '@chakra-ui/react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { InferGetServerSidePropsType } from 'next'
 import { useEffect, useState } from 'react'
 import axios from 'axios';
 import { ObjectId } from 'mongodb';
+import axios from 'axios'
 // components
 import { PageLayout } from '../components/pageLayout'
 
@@ -14,7 +15,7 @@ import clientPromise from '../../lib/mongodb'
 
 export async function getServerSideProps() {
     try {
-       
+
         return {
             props: { isConnected: true },
         }

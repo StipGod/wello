@@ -1,14 +1,25 @@
 import { useSession} from "next-auth/react"
 import { InferGetServerSidePropsType } from 'next'
 import { Box } from '@chakra-ui/react'
+import { useRef, useState } from "react"
+
 
 // components
 import { PageLayout } from '../components/pageLayout'
 import { DataInput } from "../components/dataInput"
-import { Footer } from "../components/footer"
 import { Body } from "../components/body"
 
 import clientPromise from '../../lib/mongodb'
+import axios from "axios"
+
+interface Listing {
+  description: string;
+  email: string;
+  maxPrice: string;
+  minPrice: string;
+  _id: string;
+  title : string;
+}
 
 export async function getServerSideProps() {
   try {
@@ -36,17 +47,39 @@ export default function Home({
 
   const { data: session } = useSession();
 
+  const queryRef = useRef<string>("");
+
+  const [listings,setListings] = useState<Listing[]>([]);
+
+  const handleSearch = async () => {
+      if(queryRef.current.value){
+        const resListing  =  await makeSearch(queryRef.current.value);
+        setListings(resListing?.data.listings);
+      }
+  }
+
+  const makeSearch = async (query:string) => {
+    try {
+      return await axios.post('/api/getListings',{
+        query : query 
+      });
+      console.log('Post created successfully:', response.data);
+    } catch (error) {
+      console.error('Error creating post:', error);
+    }
+  };
+
   return (
     <>
       <PageLayout>
       <Box>
-        <DataInput/>
-        <Body/>
-      </Box>
-      <Box
-      bottom={'0'}
-      left={'0'}
-      right={'0'}>
+        <DataInput
+          queryRef={queryRef}
+          handleSearch={handleSearch}
+        />
+        <Body
+        listings={listings}
+        />
       </Box>
       </PageLayout>
     </>
