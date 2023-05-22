@@ -5,14 +5,12 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    if (req.method === "GET") {
+    if (req.method === "POST") {
         try {
             const client = await clientPromise;
             const db = client.db("wello");
-            const query = await db.collection("users").findOne({ email: req.query.email });
-            // console.log(query);
-            res.json(query);
-            res.status(200).end("Success!")
+            const query = await db.collection("reviews").find({ listingId: req.body.listingId }).toArray();
+            res.status(200).json({message:"Success!", reviews:query??[]})
         } catch (err) {
             res.status(500).json({ statusCode: 500, message: err })
         }

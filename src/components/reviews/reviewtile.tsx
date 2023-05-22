@@ -2,18 +2,33 @@
 
 import { Stack, Text, Image, Flex, Heading, Icon } from "@chakra-ui/react";
 import { IoStar, IoStarOutline } from 'react-icons/io5';
-
+import { Rating } from 'react-simple-star-rating'
+import { useState,useEffect } from "react";
 
 export default function ReviewTile(props: any) {
-    const review = props.reviews;
+    const review = props.review;
+    const [rating,setRating] = useState(0)
+    const [month,setMonth] = useState(1);
+    const [day,setDay] = useState(1);
+    const [year,setYear] = useState(2000);
     // console.log(review);
+    // const onPointerMove = (value: number, index: number) => console.log(value, index)
+    const handleRating = (rate: number) => {
+        setRating(rate)
+      }
+      useEffect(()=>{
+        const date = new Date(review?.timestamp)
+        setMonth(date.getMonth()+1);
+        setDay(date.getDate());
+        setYear(date.getFullYear())
+      },[])
     return (
         <Flex direction={"row"} borderBottom={14} p={4} w={"80rem"} >
             <Stack align={"center"} flex={1}>
                 <Image
                     borderRadius='full'
                     boxSize='100px'
-                    src='https://bit.ly/dan-abramov'
+                    src={review.imageUrl}
                     alt='Dan Abramov'
                 />
 
@@ -22,21 +37,16 @@ export default function ReviewTile(props: any) {
                 <Stack direction={"row"} align={"center"} justifyContent={"space-between"}>
                     <Stack direction={"row"} align={"center"} >
 
-                        <Heading >Name</Heading>
-                        <Stack pl={5} direction={"row"}>
-                            <Icon as={IoStarOutline} />
-                            <Icon as={IoStarOutline} />
-                            <Icon as={IoStarOutline} />
-                            <Icon as={IoStarOutline} />
-                            <Icon as={IoStarOutline} />
-
+                        <Heading >{review.name}</Heading>
+                        <Stack direction={'row'}>
+                            <Rating initialValue={review.rating} emptyStyle={{ display: "flex" }}fillStyle={{ display: "-webkit-inline-box" }} onClick ={handleRating} allowFraction={true} readonly={true}  />
                         </Stack>
                     </Stack>
-                    <Text>10/2/2023</Text>
+                    <Text>{day}/{month}/{year}</Text>
 
 
                 </Stack>
-                <Text>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident ut illum eveniet sapiente non omnis? Omnis voluptatem itaque tempore quas? Ducimus neque ipsum ea numquam dolorum labore ullam, blanditiis animi?</Text>
+                <Text>{review.text}</Text>
 
             </Stack>
         </Flex >
