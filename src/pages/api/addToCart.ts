@@ -11,7 +11,7 @@ export default async function handler(
         const data = {
             email : req.body.email,
             id : req.body.id
-        }
+        }     
         try {
             const client = await clientPromise;
             const db = client.db("wello");
