@@ -7,7 +7,7 @@ import { PageLayout } from '@/components/pageLayout';
 export default function Profile() {
     const router = useRouter();
     const { email } = router.query;
-    const [items, setItems] = useState({});
+    const [items, setItems] = useState<any>({});
 
     useEffect(() => {
         if (email) {

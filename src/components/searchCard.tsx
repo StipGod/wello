@@ -25,7 +25,7 @@ export const SearchCard = ({listing}:{
     const toast = useToast();
     const { data: session } = useSession();
 
-    const handleAdd = async (id, email) => {
+    const handleAdd = async (id : string, email : string | undefined | null) => {
         toast({
             title: "Product added to cart",
             description: listing.description,

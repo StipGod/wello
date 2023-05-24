@@ -8,7 +8,7 @@ import { PageLayout } from '@/components/pageLayout'
 import axios from 'axios'
 
 
-export default function editpage() {
+export default function Editpage() {
 
     const { data: session } = useSession();
     const router = useRouter();

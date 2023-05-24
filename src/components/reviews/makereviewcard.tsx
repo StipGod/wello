@@ -12,6 +12,6 @@ export default function MakeReviewCard(props: any) {
 
     }
     return (
-       
+       <></>
     );
 }

@@ -14,8 +14,8 @@ export default function ReviewCard(props: any) {
     const { data: session } = useSession();
     const serverSideEmail = props.serverSideEmail
     useEffect(() => {
-        setAllReviews(props.reviews.map((element: any) => {
-            return (<ReviewTile review={element} />);
+        setAllReviews(props.reviews.map((element: any,index : number) => {
+            return (<ReviewTile key={index} review={element} />);
         }));
         setName(props.user.name)
         // (async ()=>{
@@ -39,8 +39,8 @@ export default function ReviewCard(props: any) {
             listingId: props.listingId,
         }
         props.reviews.push(newReview);
-        setAllReviews(props.reviews.map((element: any) => {
-            return (<ReviewTile review={element} />);
+        setAllReviews(props.reviews.map((element: any,index : number) => {
+            return (<ReviewTile key={index} review={element} />);
         }))
         listRef.current?.lastElementChild?.scrollIntoView();
         await createReview(newReview)
