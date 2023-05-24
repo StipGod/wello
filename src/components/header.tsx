@@ -9,7 +9,6 @@ import {Logo} from "./logo"
 
 export function Header() {
   const { isOpen, onToggle } = useDisclosure();
-  const { toggleColorMode } = useColorMode();
   const { data: session } = useSession();
   const [error,setError] = useState<unknown>();
   const [madeUser,setMadeUser] = useState(false);
@@ -60,14 +59,14 @@ export function Header() {
   return (
     <Box>
       <Flex
-        bg={useColorModeValue('white', 'gray.800')}
-        color={useColorModeValue('gray.600', 'white')}
+        bg={'white'}
+        color={'gray.600'}
         minH={'60px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
         borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}
+        borderColor={'gray.200'}
         align={'center'}>
         <Flex
           flex={{ base: 1, md: 'auto' }}
@@ -88,9 +87,8 @@ export function Header() {
             <Text
               fontWeight={"bold"}
               pl={"10px"}
-              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
               fontFamily={'heading'}
-              color={useColorModeValue('gray.800', 'white')}
+              color={'gray.800'}
               as="a"
               href='/'>
               Wello
@@ -125,14 +123,14 @@ export function Header() {
     return (
       <Box>
       <Flex
-        bg={useColorModeValue('white', 'gray.800')}
-        color={useColorModeValue('gray.600', 'white')}
+        bg={'white'}
+        color={'gray.600'}
         minH={'60px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
         borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}
+        borderColor={'gray.200'}
         align={'center'}>
         <Flex
           flex={{ base: 1, md: 'auto' }}
@@ -150,9 +148,8 @@ export function Header() {
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <Text
             fontWeight={"bold"}
-            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}
+            color={'gray.800'}
             as="a"
             href='/'>
             Wello
@@ -185,9 +182,7 @@ export function Header() {
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue('gray.600', 'gray.200');
-  const linkHoverColor = useColorModeValue('gray.800', 'white');
-  const popoverContentBgColor = useColorModeValue('white', 'gray.800');
+ 
 
   return (
     <Stack direction={'row'} spacing={4}>
@@ -205,7 +200,7 @@ const DesktopNav = () => {
               <PopoverContent
                 border={0}
                 boxShadow={'xl'}
-                bg={popoverContentBgColor}
+                bg={'white'}
                 p={4}
                 rounded={'xl'}
                 minW={'sm'}>
@@ -226,7 +221,7 @@ const DesktopNav = () => {
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
   return (
     <Link
-      href={href}
+      href={(href)?href:""}
       role={'group'}
       >
       <Stack direction={'row'} align={'center'}>

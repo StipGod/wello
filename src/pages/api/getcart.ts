@@ -14,7 +14,7 @@ export default async function handler(
             const client = await clientPromise;
             const db = client.db("wello");
             const user = await db.collection("users").findOne({ "email": email });
-            const ids = user.cart;
+            const ids = user?.cart;
             const listings = [];
             
             for (let index = 0; index < ids.length; index++) {

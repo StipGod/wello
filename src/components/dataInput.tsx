@@ -2,7 +2,7 @@ import { Box,Flex,Heading,Text,Input,Button } from '@chakra-ui/react'
 import { MutableRefObject } from 'react'
 
 export function DataInput({queryRef,handleSearch}:{
-    queryRef: MutableRefObject<string>,
+    queryRef: MutableRefObject<HTMLInputElement | null>
     handleSearch : () => void 
 }) {
     
@@ -129,7 +129,7 @@ export function DataInput({queryRef,handleSearch}:{
             padding={'2rem'}>
                 <Heading color={'#526081'} fontWeight={'light'} pb={'1rem'}>Find By Specialty</Heading>
                 <Flex>
-                    <Input ref={queryRef} placeholder={'Eg. “Periodontist”'} size='lg' mr={'1rem'} />
+                    <Input ref={queryRef} type='text' placeholder={'Eg. “Periodontist”'} size='lg' mr={'1rem'} />
                     <Button onClick={handleSearch} color={'#526081'} size='lg' variant='outline'>
                         search
                     </Button>

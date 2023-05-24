@@ -11,15 +11,16 @@ interface Listing {
     minPrice: string;
     _id: string;
     title : string;
+    image : string;
   }
 
 export const Body = ({listings}:{
     listings : Listing[]
 })=>{
 
-    const listingsObjects = listings?.map((listing)=>{
+    const listingsObjects = listings?.map((listing,index)=>{
         return (
-            <WrapItem>
+            <WrapItem key={listing._id}>
                 <SearchCard 
                     listing={listing}
                 />

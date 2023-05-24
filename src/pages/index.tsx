@@ -19,6 +19,7 @@ interface Listing {
   minPrice: string;
   _id: string;
   title : string;
+  image : string;
 }
 
 export async function getServerSideProps() {
@@ -47,12 +48,12 @@ export default function Home({
 
   const { data: session } = useSession();
 
-  const queryRef = useRef<string>("");
+  const queryRef = useRef<HTMLInputElement | null>(null);
 
   const [listings,setListings] = useState<Listing[]>([]);
 
   const handleSearch = async () => {
-      if(queryRef.current.value){
+      if(queryRef?.current?.value){
         const resListing  =  await makeSearch(queryRef.current.value);
         setListings(resListing?.data.listings);
       }
@@ -63,7 +64,6 @@ export default function Home({
       return await axios.post('/api/getListings',{
         query : query 
       });
-      console.log('Post created successfully:', response.data);
     } catch (error) {
       console.error('Error creating post:', error);
     }

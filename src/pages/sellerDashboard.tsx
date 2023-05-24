@@ -101,7 +101,7 @@ export default function SellerDashboard({
     isConnected,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 
-    const [analytics, setAnalytics] = useState([]);
+    const [analytics, setAnalytics] = useState<any>([]);
     const [value, setValue] = useState(false);
     useEffect(()=>{
         // const fetchData = async()=>{
@@ -124,8 +124,8 @@ export default function SellerDashboard({
             <Stack p = {4}>
                 <Heading>Seller Dashboard</Heading>
                 {value && <Text>{analytics.length}  listings</Text>}
-                {value && (analytics.map(el=>{
-                    return(<Text>{el?.title}</Text>)
+                {value && (analytics.map((el :any,index : number)=>{
+                    return(<Text key={index}>{el?.title}</Text>)
                 }))}
                 {analytics.length && <ChartComponent analytics= {analytics} />}
                 
